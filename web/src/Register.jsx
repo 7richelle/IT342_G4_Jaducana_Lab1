@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import Login from "./Login.jsx"; // make sure Login.jsx is in src/
+import Login from "./Login.jsx";
+import "./App.css";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -8,9 +9,8 @@ const Register = () => {
     password: "",
     confirmPassword: "",
   });
-
-  const [showLogin, setShowLogin] = useState(false); // for switching
   const [error, setError] = useState("");
+  const [showLogin, setShowLogin] = useState(false); // after signup
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -27,21 +27,18 @@ const Register = () => {
     setError("");
     console.log("Registered User:", formData);
 
-    // Show Login page instead of Register
-    setShowLogin(true);
+    setShowLogin(true); // go to login page after signup
   };
 
   if (showLogin) {
-    return <Login />; // render login page
+    return <Login userData={formData} />; // pass registered data
   }
 
   return (
-    <div className="register-container">
-      <form className="register-form" onSubmit={handleSubmit}>
+    <div className="container">
+      <form className="form-card" onSubmit={handleSubmit}>
         <h2>Create Account</h2>
-
         {error && <p className="error">{error}</p>}
-
         <input
           type="text"
           name="username"
@@ -50,7 +47,6 @@ const Register = () => {
           onChange={handleChange}
           required
         />
-
         <input
           type="email"
           name="email"
@@ -59,7 +55,6 @@ const Register = () => {
           onChange={handleChange}
           required
         />
-
         <input
           type="password"
           name="password"
@@ -68,7 +63,6 @@ const Register = () => {
           onChange={handleChange}
           required
         />
-
         <input
           type="password"
           name="confirmPassword"
@@ -77,7 +71,6 @@ const Register = () => {
           onChange={handleChange}
           required
         />
-
         <button type="submit">Sign Up</button>
       </form>
     </div>

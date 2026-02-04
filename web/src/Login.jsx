@@ -1,108 +1,55 @@
 import React, { useState } from "react";
+import Dashboard from "./Dashboard.jsx";
+import "./App.css";
 
-const Login = () => {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
-
+const Login = ({ userData }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showDashboard, setShowDashboard] = useState(false);
   const [error, setError] = useState("");
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
 
   const handleLogin = (e) => {
     e.preventDefault();
 
-    // Basic validation
-    if (!formData.email || !formData.password) {
+    if (!email || !password) {
       setError("Please fill in all fields");
       return;
     }
 
-    setError("");
-    console.log("Logging in with:", formData);
+    if (email !== userData.email || password !== userData.password) {
+      setError("Invalid email or password");
+      return;
+    }
 
-    // Here you can connect to backend API later
+    setError("");
+    setShowDashboard(true); // go to dashboard
   };
 
+  if (showDashboard) {
+    return <Dashboard username={userData.username} email={userData.email} />;
+  }
+
   return (
-    <div className="login-container" style={styles.container}>
-      <form style={styles.form} onSubmit={handleLogin}>
-        <h2 style={styles.title}>Login</h2>
-
-        {error && <p style={styles.error}>{error}</p>}
-
+    <div className="container">
+      <form className="form-card" onSubmit={handleLogin}>
+        <h2>Login</h2>
+        {error && <p className="error">{error}</p>}
         <input
           type="email"
-          name="email"
           placeholder="Email"
-          value={formData.email}
-          onChange={handleChange}
-          style={styles.input}
-          required
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
-
         <input
           type="password"
-          name="password"
           placeholder="Password"
-          value={formData.password}
-          onChange={handleChange}
-          style={styles.input}
-          required
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
-
-        <button type="submit" style={styles.button}>
-          Login
-        </button>
+        <button type="submit">Login</button>
       </form>
     </div>
   );
-};
-
-// Inline styles (optional, you can use CSS)
-const styles = {
-  container: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    height: "100vh",
-    background: "#f4f6f8",
-  },
-  form: {
-    background: "#fff",
-    padding: "30px",
-    width: "320px",
-    borderRadius: "8px",
-    boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
-    display: "flex",
-    flexDirection: "column",
-  },
-  title: {
-    textAlign: "center",
-    marginBottom: "20px",
-  },
-  input: {
-    padding: "10px",
-    marginBottom: "12px",
-    borderRadius: "4px",
-    border: "1px solid #ccc",
-  },
-  button: {
-    padding: "10px",
-    background: "#4caf50",
-    color: "white",
-    border: "none",
-    borderRadius: "4px",
-    cursor: "pointer",
-  },
-  error: {
-    color: "red",
-    fontSize: "14px",
-    marginBottom: "10px",
-  },
 };
 
 export default Login;
