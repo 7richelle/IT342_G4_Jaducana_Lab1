@@ -1,33 +1,31 @@
 import React, { useState } from "react";
-import Dashboard from "./Dashboard.jsx";
-import "./App.css";
+import { useNavigate } from "react-router-dom";
+import "../App.css";
 
-const Login = ({ userData }) => {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [showDashboard, setShowDashboard] = useState(false);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
-    if (!email || !password) {
-      setError("Please fill in all fields");
-      return;
-    }
+    const res = await fetch("http://localhost:8080/api/users/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    });
 
-    if (email !== userData.email || password !== userData.password) {
+    const data = await res.json();
+
+    if (!data || data.error) {
       setError("Invalid email or password");
-      return;
+    } else {
+      localStorage.setItem("user", JSON.stringify(data)); // save user
+      navigate("/dashboard"); // redirect to Dashboard
     }
-
-    setError("");
-    setShowDashboard(true); // go to dashboard
   };
-
-  if (showDashboard) {
-    return <Dashboard username={userData.username} email={userData.email} />;
-  }
 
   return (
     <div className="container">

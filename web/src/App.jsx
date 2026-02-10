@@ -1,19 +1,25 @@
 import { useState } from 'react'
 
 import './App.css'
-import Register from './Register.jsx'
-import Login from './Login.jsx'
-import Dashboard from "./Dashboard.jsx";
+import Register from './components/Register.jsx'
+import Login from './components/Login.jsx'
+import Dashboard from "./components/Dashboard.jsx";
+
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <Register/>
-     
-    </>
-  )
+    <Router>
+      <Routes>
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="*" element={<Navigate to="/register" />} />
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;
+

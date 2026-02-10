@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import Login from "./Login.jsx";
-import "./App.css";
+import "../App.css";
+import { useNavigate } from "react-router-dom";
+
 
 const Register = () => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -16,19 +20,30 @@ const Register = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    if (formData.password !== formData.confirmPassword) {
-      setError("Passwords do not match");
-      return;
-    }
+  if (formData.password !== formData.confirmPassword) {
+    setError("Passwords do not match");
+    return;
+  }
 
-    setError("");
-    console.log("Registered User:", formData);
+  const res = await fetch("http://localhost:8080/api/users/register", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(formData),
+  });
 
-    setShowLogin(true); // go to login page after signup
-  };
+  const msg = await res.text();
+
+ if (msg !== "User already existed") {
+  navigate("/login"); // go to login page after successful registration
+} else {
+  setError(msg); // show error if user exists
+}
+
+};
+
 
   if (showLogin) {
     return <Login userData={formData} />; // pass registered data
