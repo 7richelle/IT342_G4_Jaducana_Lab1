@@ -2,7 +2,7 @@
 
 ## Project Description
 
-This project demonstrates the **flow of user authentication**. It shows how a user can **register, login, and view their profile** securely using a backend, web frontend, and a database. The dashboard and profile pages are protected so only authenticated users can access them.
+This project demonstrates the **flow of user authentication**. It shows how a user can **register, login, and view their profile** securely using a backend, web frontend, and a database. 
 
 ---
 
