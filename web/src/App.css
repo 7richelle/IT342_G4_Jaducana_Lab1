@@ -28,6 +28,20 @@ body {
   margin-bottom: 20px;
   color: #333;
 }
+.form-card .login-btn {
+  margin-top: 20px;
+  background-color: white;
+  color: green;
+  border: 2px solid green;
+  border-radius: 8px;
+  padding: 10px 16px;
+  cursor: pointer;
+}
+
+.form-card .login-btn:hover {
+  background-color: green;
+  color: white;
+}
 
 .form-card input {
   padding: 10px;
@@ -76,3 +90,17 @@ body {
   font-size: 16px;
   margin: 5px 0;
 }
+.login-btn {
+  margin-top: 20px;
+  background-color: white;     
+  color: green;                
+  border: 2px solid green;     
+  border-radius: 8px;          
+  padding: 10px 16px;
+  cursor: pointer;
+}
+.login-btn:hover {
+  background-color: green;
+  color: white;
+}
+

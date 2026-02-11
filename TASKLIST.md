@@ -1,8 +1,7 @@
 Done
 -The front end of login, register, and profile is done
+- My backend implementation (Entity, Service, Controller, and Repository) is done and it is also connected to my database
 
-In progress
-- backend for my Entity, Service, Controller, and Repository for User is still in progress
 
 To do
 - phpmyadmin database connection for my mini app

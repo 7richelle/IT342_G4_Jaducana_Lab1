@@ -87,6 +87,7 @@ const Register = () => {
           required
         />
         <button type="submit">Sign Up</button>
+        <button type="button" className = "login-btn" onClick={() => navigate("/login")}>Log in</button>
       </form>
     </div>
   );
